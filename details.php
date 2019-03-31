@@ -1,5 +1,5 @@
 <?php 
-include 'Admin/function.php';
+include '../Admin/function.php';
 $cn = makeconnection();
 // echo $_REQUEST['q'];
 $sql = "select * from requestes where req_id = '". $_REQUEST["q"]."' ";
@@ -12,7 +12,7 @@ $result = mysqli_fetch_array($query);
 <html>
 <head>
 	<title>Details about pateint</title>
-	<link rel="stylesheet" href="css/details.css" type="text/css">
+	<link rel="stylesheet" href="../css/details.css" type="text/css">
 </head>
 <body>
 

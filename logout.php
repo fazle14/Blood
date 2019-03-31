@@ -7,11 +7,11 @@
 
 <body>
 <?php
+		$_SESSION["email"]="";
 
-$_SESSION["username"]="";
-	$_SESSION["usertype"]="";
-		$_SESSION['loginstatus']="";
-		header("location:admimlogin.php");
+		$_SESSION['donorstatus']="";
+		      header("location:../index.php");
+
 ?>
 </body>
 </html>
