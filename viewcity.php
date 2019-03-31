@@ -1,4 +1,5 @@
-<?php if(!isset($_SESSION)) { session_start(); } ?>
+<?php if(!isset($_SESSION)) {session_start();}  ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -39,19 +40,47 @@ if($_SESSION['loginstatus']=="")
 ?>
 <?php include('topbar.php'); ?>
     <center>
-	
-   <div id="admin_div" style="">
-   
+   <div id="admin_div">
        <div style="width:250px; float:left;">
-			<?php include('left.php'); ?>
+       <?php include('left.php'); ?>
        </div>
-	   
-       <div style="width:800px;float:right">
-			<div style="height:400px; width:750px; margin-top:50px; margin-right:150px; margin-bottom:50px; background-color:#f8f1e4; border:2px solid red; box-shadow:4px 1px 20px black;">
-			
-				<img style="height:400px; width:750px;" src="images/admin.png" height="700px"/>
-					
-			</div>
+       <div style="width:800px;float:left">
+<br /><br />
+
+<?php include('function.php'); ?>
+
+
+       <form method="post">
+<table  id="user_table" class="shaddoww">
+<tr><td colspan="3" align="center" class="toptd">View cities </td></tr>
+<tr><td>&nbsp;</td> <td align="center" style="padding-top:5px;">
+<table border="1" align="center" width="60%" height="200px" >
+<tr><td>&nbsp;</td> <td style=" padding-left:10px">City Id </td><td style=" padding-left:10px">City Name</td></tr>
+<tr><td>
+<?php
+$cn=mysqli_connect("localhost","root","","bloodbank");
+$s="select * from city";
+	$result=mysqli_query($cn,$s);
+	$r=mysqli_num_rows($result);
+	//echo $r;
+	while($data=mysqli_fetch_array($result))
+	{
+		
+			echo "<tr><td>&nbsp;</td> <td style=' padding-left:10px'>$data[0]</td><td style='padding-left:10px'>$data[1]</td></tr>";
+		}
+		
+		
+		
+	
+	mysqli_close($cn);
+
+?>
+</td></tr>
+</table>
+</table>
+
+
+</form>
        </div>
 
    </div>

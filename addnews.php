@@ -1,4 +1,5 @@
-<?php if(!isset($_SESSION)) { session_start(); } ?>
+<?php if(!isset($_SESSION)) {session_start();}  ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -39,23 +40,45 @@ if($_SESSION['loginstatus']=="")
 ?>
 <?php include('topbar.php'); ?>
     <center>
-	
-   <div id="admin_div" style="">
-   
+   <div id="admin_div">
        <div style="width:250px; float:left;">
-			<?php include('left.php'); ?>
+       <?php include('left.php'); ?>
        </div>
-	   
-       <div style="width:800px;float:right">
-			<div style="height:400px; width:750px; margin-top:50px; margin-right:150px; margin-bottom:50px; background-color:#f8f1e4; border:2px solid red; box-shadow:4px 1px 20px black;">
-			
-				<img style="height:400px; width:750px;" src="images/admin.png" height="700px"/>
-					
-			</div>
+       <div style="width:800px;float:left">
+<br /><br />
+
+<?php include('function.php'); ?>
+<?php
+if(isset($_POST["sbmt"]))
+{
+	$cn=makeconnection();
+	$s="insert into news(title,detail) values('" . $_POST["t1"] . "','" .$_POST["t2"] . "')";
+	mysqli_query($cn,$s);
+	mysqli_close($cn);
+	echo "<script>alert('Record Save');</script>";
+}
+
+?>
+       <form method="post" enctype="multipart/form-data">
+<table  id="user_table" class="shaddoww">
+<tr><td colspan="3" align="center" class="toptd">Add News </td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr> <td>&nbsp;</td> <td class="lefttd">News Title</td><td><input type="text" name="t1" required="required" pattern="[a-zA-Z1 _]{5,15}" title="please enter only character or numbers between 5 to 15 for news title"/></td></tr>
+<tr> <td>&nbsp;</td> <td class="lefttd">Detail</td><td><textarea name="t2"></textarea></td></tr>
+
+
+<tr> <td>&nbsp;</td> <td>&nbsp;</td><td><input id="submit" type="submit" value="SAVE" name="sbmt"></td></tr>
+</table>
+</form>
        </div>
+
+
 
    </div>
     </center>
+    
+   
 <?php include('bottom.php'); ?>
    
 </body>

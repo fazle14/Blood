@@ -1,4 +1,5 @@
-<?php if(!isset($_SESSION)) { session_start(); } ?>
+<?php if(!isset($_SESSION)) {session_start();}  ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -37,21 +38,66 @@ if($_SESSION['loginstatus']=="")
 	header("location:admimlogin.php");
 }
 ?>
+
 <?php include('topbar.php'); ?>
     <center>
-	
-   <div id="admin_div" style="">
-   
+   <div id="admin_div">
        <div style="width:250px; float:left;">
-			<?php include('left.php'); ?>
+       <?php include('left.php'); ?>
        </div>
-	   
-       <div style="width:800px;float:right">
-			<div style="height:400px; width:750px; margin-top:50px; margin-right:150px; margin-bottom:50px; background-color:#f8f1e4; border:2px solid red; box-shadow:4px 1px 20px black;">
-			
-				<img style="height:400px; width:750px;" src="images/admin.png" height="700px"/>
-					
-			</div>
+       <div style="width:800px;float:left">
+<br /><br />
+
+<?php include('function.php'); ?>
+<?php
+if(isset($_POST["sbmt"]))
+{
+	$cn=makeconnection();
+	$s="delete from camp where camp_id='"  . $_POST["s1"] ."'";
+	mysqli_query($cn,$s);
+	mysqli_close($cn);
+	echo "<script>alert('Record delete');</script>";
+}
+
+?>
+
+       <form method="post">
+<table  id="user_table" class="shaddoww">
+<tr><td colspan="3" align="center" class="toptd">Delete Camp </td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td class="lefttd">Select Camp </td><td><select id="select" name="s1" required><option value="">Select</option>
+
+<?php
+$cn=makeconnection();
+$s="select * from camp";
+	$result=mysqli_query($cn,$s);
+	$r=mysqli_num_rows($result);
+	//echo $r;
+	while($data=mysqli_fetch_array($result))
+	{
+		
+		
+			echo "<option value=$data[0]>$data[1]</option>";
+		
+		
+		
+		
+	}
+	mysqli_close($cn);
+
+?>
+
+
+
+</select>
+
+
+
+</td></tr>
+
+<tr><td>&nbsp;</td><td>&nbsp;</td><td><input id="submit" type="submit" value="DELETE" name="sbmt"></td></tr>
+</table>
+</form>
        </div>
 
    </div>

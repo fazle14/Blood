@@ -1,8 +1,7 @@
 <?php
-$mysqli = new mysqli('localhost', 'root', '', 'bloodbank');
-if(!$mysqli)
-{
-	echo 'database not connected';
+$mysqli= new mysqli("localhost","root","","bloodbank");
+if($mysqli){
+	echo "connection";
 }
 $find = $_GET['find'];
 switch ($find)
@@ -13,33 +12,24 @@ switch ($find)
 	case 'district':
 	$query = 'SELECT dis_id, dis_name FROM district WHERE
 	state_id='.$_GET['id'];
-	break;
-	case 'city':
-	$query = 'SELECT city_id, city_name FROM city
-	WHERE district='.$_GET['id'];
-	break;
-	default:
-	break;
-	// case 'information':
-	// $query = 'SELECT id, description FROM towninfo
-	// WHERE townId='.$_GET['id'] .' LIMIT 1';
-	// break;
+
+	/*case 'towns':
+	$query = 'SELECT id, townName FROM towns
+	WHERE stateId='.$_GET['id'];
+	case 'information':
+	$query = 'SELECT id, description FROM towninfo
+	WHERE townId='.$_GET['id'] .' LIMIT 1';
+	break;*/
 }
 if ($mysqli->query($query))
 {
-	$result = $mysqli->query($query);
-	if($find == 'city'){
-		?>
-
-	<option value="0">All</option>
-<?php 
-}
-else{
 	?>
 
-<option value ="">Select</option>
-		<?php
-	}
+	<option value="">select</option>
+
+	<?php
+	$result = $mysqli->query($query);
+	
 		while($row = $result->fetch_array())
 		{
 			?>
